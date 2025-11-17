@@ -4,35 +4,35 @@
 
 const ITEMS = {
   exhaustion: [
-    'At work, I feel mentally exhausted',
-    'Everything I do at work requires a great deal of effort',
-    'After a day at work, I find it hard to recover my energy',
-    'At work, I feel physically exhausted',
-    'When I get up in the morning, I lack the energy to start a new day at work',
-    'I want to be active at work, but somehow I am unable to manage',
-    'When I exert myself at work, I quickly get tired',
-    'At the end of my working day, I feel mentally exhausted and drained'
+    'No trabalho, sinto-me mentalmente exausto(a)',
+    'Tudo o que faço no trabalho exige muito esforço',
+    'Após um dia de trabalho, acho difícil recuperar minha energia',
+    'No trabalho, sinto-me fisicamente exausto(a)',
+    'Quando me levanto de manhã, sinto que não tenho energia para começar um novo dia de trabalho',
+    'Quero ser ativo(a) no trabalho, mas de alguma forma não consigo',
+    'Quando me esforço no trabalho, fico cansado(a) rapidamente',
+    'Ao final do meu dia de trabalho, sinto-me mentalmente exausto(a) e esgotado(a)'
   ],
-  mentalDistance: [
-    'I struggle to find any enthusiasm for my work',
-    'At work, I do not think much about what I am doing and I function on autopilot',
-    'I feel a strong aversion towards my job',
-    'I feel indifferent about my job',
-    'I\'m cynical about what my work means to others'
-  ],
+    mentalDistance: [
+      'Tenho dificuldade em encontrar entusiasmo pelo meu trabalho',
+      'No trabalho, não penso muito sobre o que estou fazendo e funciono no modo automático',
+      'Sinto uma forte aversão pelo meu trabalho',
+      'Sinto-me indiferente em relação ao meu trabalho',
+      'Sou cínico(a) quanto ao significado do meu trabalho para os outros'
+    ],
   cognitive: [
-    'At work, I have trouble staying focused',
-    'At work I struggle to think clearly',
-    'I\'m forgetful and distracted at work',
-    'When I\'m working, I have trouble concentrating',
-    'I make mistakes in my work because I have my mind on other things'
+    'No trabalho, tenho dificuldade em manter o foco',
+    'No trabalho, tenho dificuldade para pensar com clareza',
+    'Sou esquecido(a) e distraído(a) no trabalho',
+    'Quando estou trabalhando, tenho dificuldade de concentração',
+    'Cometo erros no trabalho porque estou com a cabeça em outras coisas'
   ],
   emotional: [
-    'At work, I feel unable to control my emotions',
-    'I do not recognize myself in the way I react emotionally at work',
-    'During my work I become irritable when things don\'t go my way',
-    'I get upset or sad at work without knowing why',
-    'At work I may overreact unintentionally'
+    'No trabalho, sinto que não consigo controlar minhas emoções',
+    'Não me reconheço na forma como reajo emocionalmente no trabalho',
+    'Durante o trabalho, fico irritado(a) quando as coisas não saem como quero',
+    'Fico chateado(a) ou triste no trabalho sem saber o motivo',
+    'No trabalho, posso reagir de forma exagerada sem querer'
   ]
 };
 
@@ -54,16 +54,16 @@ function buildForm(){
     arr.forEach(text => {
       const qDiv = document.createElement('div');
       qDiv.className = 'question';
-      qDiv.innerHTML = `
-        <div class="q-text"><strong>${idx}.</strong> ${text}</div>
-        <div class="options" data-q="${idx}">
-          <label><input type="radio" name="q${idx}" value="1"><span>1</span></label>
-          <label><input type="radio" name="q${idx}" value="2"><span>2</span></label>
-          <label><input type="radio" name="q${idx}" value="3"><span>3</span></label>
-          <label><input type="radio" name="q${idx}" value="4"><span>4</span></label>
-          <label><input type="radio" name="q${idx}" value="5"><span>5</span></label>
-        </div>
-      `;
+        qDiv.innerHTML = `
+          <div class="q-text"><strong>${idx}.</strong> ${text}</div>
+          <div class="options" data-q="${idx}">
+            <label><input type="radio" name="q${idx}" value="1"><span>1<br><small>Nunca</small></span></label>
+            <label><input type="radio" name="q${idx}" value="2"><span>2<br><small>Raramente</small></span></label>
+            <label><input type="radio" name="q${idx}" value="3"><span>3<br><small>Às vezes</small></span></label>
+            <label><input type="radio" name="q${idx}" value="4"><span>4<br><small>Frequentemente</small></span></label>
+            <label><input type="radio" name="q${idx}" value="5"><span>5<br><small>Sempre</small></span></label>
+          </div>
+        `;
       qContainer.appendChild(qDiv);
       idx++;
     });
@@ -81,17 +81,17 @@ function getAnswers(){
   return vals;
 }
 
-function allAnswered(vals){ return vals.every(v => v>=1 && v<=5); }
-
-function mean(array){ return array.reduce((a,b)=>a+b,0)/array.length; }
-
-function classifyScale(value, cuts){
-  if (value <= cuts.green) return 'Green';
-  if (value <= cuts.orange) return 'Orange';
-  return 'Red';
-}
-
-function computeSubscales(vals){
+        document.getElementById('copyBtn').addEventListener('click', ()=>{
+          const vals = getAnswers(); if (!allAnswered(vals)){ alert('Por favor, responda todos os itens antes.'); return; }
+          const sub = computeSubscales(vals); const totalVal = overallMean(vals);
+          let text = `BAT — Média total: ${totalVal}
+      Esgotamento: ${sub.exhaustion.mean}
+      Distanciamento mental: ${sub.mentalDistance.mean}
+      Prejuízo cognitivo: ${sub.cognitive.mean}
+      Prejuízo emocional: ${sub.emotional.mean}`;
+          document.getElementById('saved').innerText='Salvo localmente.';
+          navigator.clipboard.writeText(text).then(()=>alert('Copiado para a área de transferência.')).catch(()=>alert('Falha ao copiar.'));
+        });
   // Map flat answers into subscales according to ITEMS order
   const map = {};
   let pos = 0;
@@ -120,22 +120,29 @@ function renderResult(vals){
 
   // build HTML
   resDiv.innerHTML = `
-    <div><strong>Total (mean):</strong> ${total.toFixed(2)} — <strong>${clsTotal}</strong></div>
+    <div><strong>Total (média):</strong> ${total.toFixed(2)} — <strong>${clsTotal}</strong></div>
     <div class="bar-chart" id="chart">
       ${['exhaustion','mentalDistance','cognitive','emotional'].map(k=>{
         const m = sub[k].mean;
         const pct = ((m-1)/4)*100;
         const color = (k==='exhaustion'? '#f46':'#6ab');
-        return `<div class="bar" title="${k}: ${m}"><div style="height:${pct}% ; background:${color}; border-radius:6px 6px 0 0"></div><div class="label">${k}<br/>${m}</div></div>`;
+        // rótulos em português
+        const labels = {
+          exhaustion: 'Esgotamento',
+          mentalDistance: 'Distanciamento mental',
+          cognitive: 'Prejuízo cognitivo',
+          emotional: 'Prejuízo emocional'
+        };
+        return `<div class="bar" title="${labels[k]}: ${m}"><div style="height:${pct}% ; background:${color}; border-radius:6px 6px 0 0"></div><div class="label">${labels[k]}<br/>${m}</div></div>`;
       }).join('')}
     </div>
     <div style="margin-top:10px">
-      <strong>Subscales:</strong>
+      <strong>Subescalas:</strong>
       <ul>
-        <li>Exhaustion: ${sub.exhaustion.mean} — ${clsEx}</li>
-        <li>Mental distance: ${sub.mentalDistance.mean} — ${clsMd}</li>
-        <li>Cognitive impairment: ${sub.cognitive.mean} — ${clsCi}</li>
-        <li>Emotional impairment: ${sub.emotional.mean} — ${clsEm}</li>
+        <li>Esgotamento: ${sub.exhaustion.mean} — ${clsEx}</li>
+        <li>Distanciamento mental: ${sub.mentalDistance.mean} — ${clsMd}</li>
+        <li>Prejuízo cognitivo: ${sub.cognitive.mean} — ${clsCi}</li>
+        <li>Prejuízo emocional: ${sub.emotional.mean} — ${clsEm}</li>
       </ul>
     </div>
   `;
@@ -148,7 +155,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
   document.getElementById('calc').addEventListener('click', ()=>{
     const vals = getAnswers();
     if (!allAnswered(vals)){
-      document.getElementById('result').innerHTML = '<div style="color:#b33">Please answer all items.</div>';
+      document.getElementById('result').innerHTML = '<div style="color:#b33">Por favor, responda todos os itens.</div>';
+        if (!allAnswered(vals)){ alert('Por favor, responda todos os itens antes.'); return; }
       return;
     }
     renderResult(vals);
@@ -163,10 +171,12 @@ window.addEventListener('DOMContentLoaded', ()=>{
     const vals = getAnswers(); if (!allAnswered(vals)){ alert('Please answer all items first.'); return; }
     const sub = computeSubscales(vals); const total = overallMean(vals);
     let text = `BAT — Total mean: ${total}
-Exhaustion: ${sub.exhaustion.mean}
-Mental distance: ${sub.mentalDistance.mean}
-Cognitive: ${sub.cognitive.mean}
-Emotional: ${sub.emotional.mean}`;
+  let text = `BAT — Média total: ${total}
+Esgotamento: ${sub.exhaustion.mean}
+Distanciamento mental: ${sub.mentalDistance.mean}
+Prejuízo cognitivo: ${sub.cognitive.mean}
+Prejuízo emocional: ${sub.emotional.mean}`;
+      document.getElementById('saved').innerText='Salvo localmente.';
     navigator.clipboard.writeText(text).then(()=>alert('Copied to clipboard.')).catch(()=>alert('Copy failed.'));
   });
 
