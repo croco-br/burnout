@@ -1,0 +1,25 @@
+
+:root{--bg:#f7f8fb;--card:#fff;--muted:#666;--accent:#0b5fff}
+*{box-sizing:border-box}
+body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); margin:0; color:#111}
+.container{max-width:960px;margin:28px auto;padding:16px}
+.card{background:var(--card);border-radius:10px;padding:18px;margin-bottom:14px;box-shadow:0 1px 0 rgba(0,0,0,0.04)}
+h1{font-size:1.6rem;margin:0 0 8px}
+h2{margin:0 0 8px}
+.small{font-size:0.85rem;color:var(--muted)}
+legend{font-weight:700;margin-bottom:8px}
+.question{margin-bottom:12px}
+.q-text{margin-bottom:6px}
+.options{display:flex;gap:8px}
+.options label{background:#f2f4ff;border-radius:6px;padding:6px 10px;cursor:pointer;border:1px solid transparent}
+.options input{display:none}
+.options input:checked + span{background:var(--accent);color:#fff;border-color:rgba(11,95,255,0.2)}
+.actions{margin-top:12px;display:flex;gap:8px}
+button{border:0;padding:10px 12px;border-radius:8px;background:var(--accent);color:#fff;cursor:pointer}
+button.secondary{background:#eef0ff;color:#0b2b66;border:1px solid #dfe7ff}
+#result{margin-top:12px}
+.bar-chart{display:flex;gap:8px;align-items:flex-end;height:120px}
+.bar{flex:1;text-align:center;padding-top:6px;border-radius:6px 6px 0 0}
+.bar .label{font-size:0.85rem;margin-top:6px}
+.saved{margin-top:8px;color:green}
+@media(max-width:600px){.options{flex-wrap:wrap}}
