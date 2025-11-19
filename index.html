@@ -1,25 +1,60 @@
-
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>BAT — Questionário de Experiência no Trabalho (versão oficial traduzida)</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <main class="container">
-    <h1>Questionário de Experiência no Trabalho — BAT (versão oficial traduzida)</h1>
+    <h1>Questionário de Experiência no Trabalho — BAT (tradução pt-br)</h1>
+
+    <!-- Professional Disclaimer -->
+    <section class="card disclaimer" id="disclaimer" role="alert">
+      <h2>⚠️ Aviso Importante</h2>
+      <p>
+        <strong>Este questionário é apenas uma ferramenta de triagem e NÃO substitui uma avaliação
+          profissional.</strong>
+      </p>
+      <p>
+        Se você está enfrentando sintomas de esgotamento, estresse ou outros problemas relacionados ao trabalho,
+        <strong>recomendamos fortemente que você busque ajuda de um profissional de saúde mental qualificado</strong>
+        (psicólogo, psiquiatra ou médico do trabalho).
+      </p>
+      <p>
+        O burnout é uma condição séria que requer acompanhamento adequado. Um profissional poderá fazer uma
+        avaliação completa e recomendar o tratamento apropriado para sua situação.
+      </p>
+    </section>
 
     <section class="card" id="intro">
       <h2>Instruções</h2>
-      <p>Esta página utiliza os enunciados oficiais do <strong>BAT — Ferramenta de Avaliação de Burnout (Manual do Usuário, v2.0)</strong> na versão <em>relacionada ao trabalho</em>. Responda a cada afirmação indicando a frequência com que ela se aplica a você: <strong>1</strong>=Nunca, <strong>2</strong>=Raramente, <strong>3</strong>=Às vezes, <strong>4</strong>=Frequentemente, <strong>5</strong>=Sempre.</p>
-      <p><em>Nota:</em> O BAT é um instrumento de triagem e <strong>não substitui</strong> avaliação clínica. As faixas de corte e interpretação foram retiradas do manual oficial. (Fonte: Manual do Usuário BAT v2.0).</p>
+      <p>
+        Esta página utiliza os enunciados oficiais do
+        <strong>BAT — Ferramenta de Avaliação de Burnout</strong> na versão
+        <em>relacionada ao trabalho</em>.
+      </p>
+      <p>
+        Responda a cada afirmação indicando a frequência com que ela se aplica a você:
+      </p>
+      <ul>
+        <li><strong>1</strong> = Nunca</li>
+        <li><strong>2</strong> = Raramente</li>
+        <li><strong>3</strong> = Às vezes</li>
+        <li><strong>4</strong> = Frequentemente</li>
+        <li><strong>5</strong> = Sempre</li>
+      </ul>
+      <p>
+        <strong>Total de questões:</strong> 23 itens principais + 10 sintomas secundários.
+      </p>
     </section>
 
     <form id="batForm" class="card" autocomplete="off">
       <fieldset>
-        <legend>Itens (versão relacionada ao trabalho — tradução oficial)</legend>
+        <legend>Questões </legend>
         <div id="questions"></div>
 
         <div class="actions">
@@ -32,31 +67,105 @@
     </form>
 
     <section class="card" id="explain">
-      <h2>Descrição e explicação do método</h2>
-      <p>O BAT consiste em quatro subescalas principais: <strong>Esgotamento</strong> (8 itens), <strong>Distanciamento mental</strong> (5 itens), <strong>Prejuízo cognitivo</strong> (5 itens) e <strong>Prejuízo emocional</strong> (5 itens). Calcula-se a média de cada subescala e a média total (dividida por 23). Para interpretação clínica, utilizam-se os pontos de corte publicados no manual (ex.: total-core: <strong>Verde ≤ 2,58</strong>, <strong>Laranja 2,59–3,01</strong>, <strong>Vermelho ≥ 3,02</strong>; as subescalas possuem seus próprios pontos de corte). Trechos do manual foram usados para redação e corte.</p>
+      <h2>Como o Cálculo é Realizado</h2>
 
-      <h3>Interpretação rápida (BAT-23 — referências do manual)</h3>
+      <h3>Metodologia</h3>
+      <p>
+        O BAT (Burnout Assessment Tool) calcula a média das respostas para cada subescala e para o total geral.
+        Cada resposta varia de 1 (Nunca) a 5 (Sempre). As médias são então comparadas com pontos de corte
+        específicos para classificar o nível de risco.
+      </p>
+
+      <h3>Estrutura do Questionário</h3>
       <ul>
-        <li><strong>Total (core)</strong>: Verde 1,00–2,58 | Laranja 2,59–3,01 | Vermelho 3,02–5,00.</li>
-        <li>Esgotamento, Distanciamento mental, Prejuízo emocional e Prejuízo cognitivo possuem pontos de corte específicos no manual (usados no cálculo abaixo).</li>
+        <li><strong>Esgotamento (Exhaustion):</strong> 8 itens - Avalia fadiga física e mental relacionada ao trabalho
+        </li>
+        <li><strong>Distanciamento Mental (Mental Distance):</strong> 5 itens - Avalia desengajamento e cinismo em
+          relação ao trabalho</li>
+        <li><strong>Prejuízo Cognitivo (Cognitive Impairment):</strong> 5 itens - Avalia dificuldades de concentração e
+          memória</li>
+        <li><strong>Prejuízo Emocional (Emotional Impairment):</strong> 5 itens - Avalia desregulação emocional no
+          trabalho</li>
+        <li><strong>Sintomas Secundários (Secondary Symptoms):</strong> 10 itens - Avalia sintomas físicos e
+          psicológicos associados</li>
       </ul>
-    </section>
 
-    <section class="card" id="export">
-      <h2>Exportar / Salvar</h2>
-      <div class="row">
-        <button id="copyBtn" class="secondary">Copiar resumo</button>
-        <button id="saveJson" class="secondary">Salvar JSON</button>
+      <h3>Pontos de Corte</h3>
+      <div class="cutoff-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Escala</th>
+              <th>🟢 Baixo Risco</th>
+              <th>🟠 Risco Médio</th>
+              <th>🔴 Alto Risco</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Total</strong></td>
+              <td>1,00 – 2,58</td>
+              <td>2,59 – 3,01</td>
+              <td>3,02 – 5,00</td>
+            </tr>
+            <tr>
+              <td>Esgotamento</td>
+              <td>1,00 – 3,05</td>
+              <td>3,06 – 3,30</td>
+              <td>3,31 – 5,00</td>
+            </tr>
+            <tr>
+              <td>Distanciamento Mental</td>
+              <td>1,00 – 2,49</td>
+              <td>2,50 – 3,09</td>
+              <td>3,10 – 5,00</td>
+            </tr>
+            <tr>
+              <td>Prejuízo Cognitivo</td>
+              <td>1,00 – 2,69</td>
+              <td>2,70 – 3,09</td>
+              <td>3,10 – 5,00</td>
+            </tr>
+            <tr>
+              <td>Prejuízo Emocional</td>
+              <td>1,00 – 2,09</td>
+              <td>2,10 – 2,89</td>
+              <td>2,90 – 5,00</td>
+            </tr>
+            <tr>
+              <td>Sintomas Secundários</td>
+              <td>1,00 – 2,58</td>
+              <td>2,59 – 3,01</td>
+              <td>3,02 – 5,00</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div id="saved" class="saved"></div>
-    </section>
 
-    <footer class="card small">Gerado com base no Manual do Usuário BAT v2.0. Utilize em conformidade com direitos autorais e apenas para finalidade de triagem.</footer>
+      <h3>Interpretação dos Resultados</h3>
+      <ul>
+        <li><strong>🟢 Baixo Risco:</strong> Níveis normais de estresse relacionado ao trabalho. Continue monitorando
+          seu bem-estar.</li>
+        <li><strong>🟠 Risco Médio:</strong> Sinais de alerta presentes. Considere fazer mudanças no ambiente de
+          trabalho ou buscar suporte.</li>
+        <li><strong>🔴 Alto Risco:</strong> Indicadores significativos de burnout. Recomenda-se fortemente buscar
+          avaliação e acompanhamento profissional.</li>
+      </ul>
+
+      <h3>Referência Científica</h3>
+      <p>
+        Schaufeli, W. B., De Witte, H., &amp; Desart, S. (2020). Manual Burnout Assessment Tool
+        (BAT) - Version 2.0.
+        KU Leuven, Belgium: Unpublished internal report.
+      <p><a href="https://burnoutassessmenttool.be/wp-content/uploads/2020/08/User-Manual-BAT-version-2.0.pdf"
+          target="_blank" rel="noopener" class="manual-link">
+          <strong>📄 Material Original (PDF)</strong>
+        </a></p>
+      </p>
+    </section>
   </main>
 
   <script src="script.js"></script>
 </body>
+
 </html>
-
-
-
